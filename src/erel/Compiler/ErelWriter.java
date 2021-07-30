@@ -106,10 +106,12 @@ public class ErelWriter extends ErelCompiler implements MouseListener, KeyListen
         }
     }
 
+    //
     private void startTimer() {
         this.isRecording = true;
     }
 
+    //
     private int stopTimer() {
         this.isRecording = false;
         int a = this.timer;
@@ -117,6 +119,7 @@ public class ErelWriter extends ErelCompiler implements MouseListener, KeyListen
         return a;
     }
 
+    //
     private void addClickEvent(String action, int key, int x, int y) {
         aux.append(action);
         aux.append(" ");
@@ -137,6 +140,7 @@ public class ErelWriter extends ErelCompiler implements MouseListener, KeyListen
         aux.append(";");
     }
 
+    //
     private void addKeyEvent(String action, int key) {
         aux.append(action);
         aux.append(" ");
@@ -149,6 +153,7 @@ public class ErelWriter extends ErelCompiler implements MouseListener, KeyListen
         aux.append(";");
     }
 
+    //
     private void addTimeLineEvent(int time) {
         aux.append(DO_ACTION);
         aux.append(" ");
@@ -158,12 +163,12 @@ public class ErelWriter extends ErelCompiler implements MouseListener, KeyListen
         aux.append(time);
         aux.append(";");
     }
+
     //
     private final StringBuffer aux;
     private final String ruta;
     private boolean isRecording = false;
     private int timer = 0;
-//    private int 
 
     //
     private PointerInfo a;

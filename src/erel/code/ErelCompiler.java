@@ -104,17 +104,19 @@ public class ErelCompiler implements Command {
         }
 
         steps.set(0, String.valueOf(step));
-        
+
         //
         readBuffer.close();
         lector.close();
         return steps;
     }
 
+    //
     private String getChar(int Index) {
         return respuesta.substring(Index, Index + 1);
     }
 
+    //
     private boolean getCharStet(int Index, String Character) {
         return respuesta.substring(Index, Index + 1).equals(Character);
     }
