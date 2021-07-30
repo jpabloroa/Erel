@@ -20,14 +20,10 @@ import java.util.ArrayList;
  */
 public class ErelCompiler implements Command {
 
-    public ErelCompiler() {
-
-    }
-
     public void write(String Directory, StringBuffer Command) throws IOException {
 
         //
-        if (Directory.substring(Directory.length() - 4).equals(".erel")) {
+        if (Directory.substring(Directory.length() - 4).equalsIgnoreCase(".erel")) {
             lector = new FileReader(new File(Directory));
         } else {
             throw new FileNotFoundException("No se encuentra el archivo .EREL");
@@ -44,12 +40,6 @@ public class ErelCompiler implements Command {
         respuesta.append("{");
 
         //
-//        int cont = 0;
-//
-//        while (cont < Command.size()) {
-//            respuesta.append(Command.get(cont));
-//        }
-//
         respuesta.append(Command);
 
         respuesta.append("}");
@@ -65,7 +55,7 @@ public class ErelCompiler implements Command {
     public ArrayList<String> read(String Directory) throws FileNotFoundException, IOException {
 
         //
-        if (Directory.substring(Directory.length() - 4).equals(".erel")) {
+        if (Directory.substring(Directory.length() - 4).equalsIgnoreCase(".erel")) {
             lector = new FileReader(new File(Directory));
         } else {
             throw new FileNotFoundException("No se encuentra el archivo .EREL");
@@ -114,6 +104,7 @@ public class ErelCompiler implements Command {
         }
 
         steps.set(0, String.valueOf(step));
+        
         //
         readBuffer.close();
         lector.close();
