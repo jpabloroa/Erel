@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package erel.bootstrap;
+package erel.Compiler;
 
 import erel.code.ErelCompiler;
 import java.awt.AWTException;
@@ -12,8 +12,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,18 +22,15 @@ public class ErelLoader extends ErelCompiler {
     public ErelLoader(String ruta) throws AWTException {
         this.ruta = ruta;
         this.robot = new Robot();
+        this.aux = new StringBuffer();
     }
 
-    StringBuffer aux = new StringBuffer();
+    public void readFile() throws IOException {
 
-    public void load() throws IOException {
+        //
         ArrayList<String> al = super.read(ruta);
 
-//        for(String s: al){
-//            switch(){
-//                
-//            }
-//        }
+        //
         int cont = 0;
         while (cont < al.size()) {
             switch (al.get(cont)) {
@@ -87,19 +82,21 @@ public class ErelLoader extends ErelCompiler {
                     }
                     break;
                 case KEY_OBJECT:
-                    int keyCode = KeyEvent.getExtendedKeyCodeForChar(al.get(cont + 2).charAt(1));
+                    int keyCode = super.getNumber(al.get(cont + 2));
                     if (KeyEvent.CHAR_UNDEFINED == keyCode) {
                         throw new RuntimeException(
                                 "Key code not found for character '" + al.get(cont + 2) + "'");
                     }
                     switch (al.get(cont - 1)) {
                         case DO_ACTION:
+
                             robot.keyPress(keyCode);
+
                             robot.delay(20);
 
                             //
                             aux.append(" -> Tecla presionada en ");
-                            aux.append(keyCode);
+                            aux.append(KeyEvent.getKeyText(keyCode));
                             aux.append("\n");
 
                             cont++;
@@ -110,7 +107,7 @@ public class ErelLoader extends ErelCompiler {
 
                             //
                             aux.append(" -> Tecla presionada en ");
-                            aux.append(keyCode);
+                            aux.append(KeyEvent.getKeyText(keyCode));
                             aux.append("\n");
 
                             cont++;
@@ -127,28 +124,8 @@ public class ErelLoader extends ErelCompiler {
         aux.append(" ¡ Exito ! ");
     }
 
-    public static void main(String args[]) {
-//        ErelCompiler ec = new ErelCompiler();
-//        try {
-//            ArrayList<String> al = ec.read("D:\\OneDrive\\Escritorio\\records\\nomacrio1.rvnt");
-//            for (String s : al) {
-//                System.out.println(s);
-//            }
-//        } catch (IOException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-        ErelLoader el;
-        try {
-            el = new ErelLoader("D:\\OneDrive\\Escritorio\\records\\nomacrio1.rvnt");
-            el.load();
-            System.out.println(el.aux.toString());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        } catch (AWTException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
+    //
+    private final StringBuffer aux;
     private final String ruta;
     private final Robot robot;
 

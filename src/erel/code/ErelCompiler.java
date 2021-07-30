@@ -13,8 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,9 +24,14 @@ public class ErelCompiler implements Command {
 
     }
 
-    public void write(String Directory, ArrayList<String> Command) throws IOException {
-//
-        raster = new FileWriter(new File(Directory));
+    public void write(String Directory, StringBuffer Command) throws IOException {
+
+        //
+        if (Directory.substring(Directory.length() - 4).equals(".erel")) {
+            lector = new FileReader(new File(Directory));
+        } else {
+            throw new FileNotFoundException("No se encuentra el archivo .EREL");
+        }
 
         //
         writeBuffer = new BufferedWriter(raster);
@@ -41,11 +44,13 @@ public class ErelCompiler implements Command {
         respuesta.append("{");
 
         //
-        int cont = 0;
-
-        while (cont < Command.size()) {
-            respuesta.append(Command.get(cont));
-        }
+//        int cont = 0;
+//
+//        while (cont < Command.size()) {
+//            respuesta.append(Command.get(cont));
+//        }
+//
+        respuesta.append(Command);
 
         respuesta.append("}");
 
@@ -58,8 +63,13 @@ public class ErelCompiler implements Command {
     }
 
     public ArrayList<String> read(String Directory) throws FileNotFoundException, IOException {
+
         //
-        lector = new FileReader(new File(Directory));
+        if (Directory.substring(Directory.length() - 4).equals(".erel")) {
+            lector = new FileReader(new File(Directory));
+        } else {
+            throw new FileNotFoundException("No se encuentra el archivo .EREL");
+        }
 
         //
         readBuffer = new BufferedReader(lector);
@@ -80,10 +90,8 @@ public class ErelCompiler implements Command {
         int step = 0;
         //
         steps = new ArrayList<>();
-
         steps.add("*");
 
-//        steps.add();
         //
         while (cont1 < largo) {
 
@@ -94,7 +102,7 @@ public class ErelCompiler implements Command {
                 }
                 if (!getCharStet(cont1, "") && !getCharStet(cont1, " ") && !getCharStet(cont1, "\n") && !getCharStet(cont1, "\r")) {
                     steps.add(getChar(cont1));
-                    if(getCharStet(cont1, ";")){
+                    if (getCharStet(cont1, ";")) {
                         step++;
                     }
                 }
@@ -133,16 +141,8 @@ public class ErelCompiler implements Command {
     private BufferedWriter writeBuffer;
     private BufferedReader readBuffer;
 
-    public int getNumber(String string){
+    public int getNumber(String string) {
         return Integer.parseInt(string.substring(1));
     }
 
-    //
-    public String returnAction(ArrayList<String> MainLine) {
-
-//            if (s.equals(DO_ACTION)) {
-                return "";
-//            }
-        
-    }
 }
