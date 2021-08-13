@@ -19,9 +19,9 @@ import java.util.ArrayList;
  */
 public class ErelLoader extends ErelCompiler {
 
-    public ErelLoader(String ruta) throws AWTException {
+    public ErelLoader(String ruta, Robot robot) throws AWTException {
         this.ruta = ruta;
-        this.robot = new Robot();
+        this.robot = robot;
         this.aux = new StringBuffer();
     }
 
@@ -82,7 +82,7 @@ public class ErelLoader extends ErelCompiler {
                     }
                     break;
                 case KEY_OBJECT:
-                    int keyCode = super.getNumber(al.get(cont + 2));
+                    int keyCode = KeyEvent.getExtendedKeyCodeForChar(super.getNumber(al.get(cont + 2)));
                     if (KeyEvent.CHAR_UNDEFINED == keyCode) {
                         throw new RuntimeException(
                                 "Key code not found for character '" + al.get(cont + 2) + "'");

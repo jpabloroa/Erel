@@ -23,8 +23,8 @@ public class ErelCompiler implements Command {
     public void write(String Directory, StringBuffer Command) throws IOException {
 
         //
-        if (Directory.substring(Directory.length() - 4).equalsIgnoreCase(".erel")) {
-            lector = new FileReader(new File(Directory));
+        if (Directory.substring(Directory.length() - 5).equalsIgnoreCase(".erel")) {
+            raster = new FileWriter(new File(Directory));
         } else {
             throw new FileNotFoundException("No se encuentra el archivo .EREL");
         }
@@ -55,7 +55,7 @@ public class ErelCompiler implements Command {
     public ArrayList<String> read(String Directory) throws FileNotFoundException, IOException {
 
         //
-        if (Directory.substring(Directory.length() - 4).equalsIgnoreCase(".erel")) {
+        if (Directory.substring(Directory.length() - 5).equalsIgnoreCase(".erel")) {
             lector = new FileReader(new File(Directory));
         } else {
             throw new FileNotFoundException("No se encuentra el archivo .EREL");
